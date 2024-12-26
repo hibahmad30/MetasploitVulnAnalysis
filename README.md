@@ -1,4 +1,5 @@
-<h1>Nessus Vulnerability Management and Analysis</h1>
+<h1>Metasploitable Vulnerability Assessment and Prioritization</h1>
+<h1>Analyzing Metasploitable Vulnerabilities with Nessus Essentials</h1>
 
 <h2>Description</h2>
 This project focuses on utilizing Nessus Essentials to conduct both credentialed and non-credentialed vulnerability scans on Metasploitable 2, an intentionally insecure virtual machine, from a Windows 10 environment. By analyzing the scan results, vulnerabilities are evaluated and prioritized based on severity, aiding in the development of a strategic remediation plan. This approach highlights the importance of thorough vulnerability assessment and effective risk management in maintaining secure systems.
