@@ -16,10 +16,15 @@ This project focuses on utilizing Nessus Essentials to conduct both credentialed
 <h2>Prerequisites:</h2> 
 
 <p align="center">
-The Nessus scan will be run on a Windows 10 virtual machine from our host machine. In this analysis the virtual machine will be created using Oracle VirtualBox, however any hypervisor can be used. The download links and instructions are provided as follows:<br /><br />Download Oracle VirtualBox: https://www.virtualbox.org/wiki/Downloads<br />Download Windows 10 Disc Image (ISO File): https://www.microsoft.com/en-us/software-download/windows10<br />Download Nessus Essentials: https://www.tenable.com/products/nessus/nessus-essentials
+The Nessus scan will be run on a Metasploitable 2 virtual machine from a Windows 10 virtual machine. Metasploitable 2 is an intentionally vulnerable Linux-based virtual machine used for testing and training in penetration testing and vulnerability assessments. In this analysis, the virtual machine will be created using Oracle VirtualBox, however any hypervisor can be used. The download links and instructions are provided as follows:<br /><br />Download Oracle VirtualBox: https://www.virtualbox.org/wiki/Downloads<br />Download Windows 10 Disc Image (ISO File): https://www.microsoft.com/en-us/software-download/windows10<br />Download Metasploitable 2: https://docs.rapid7.com/metasploit/metasploitable-2/
+ <br/> 
  <br/>
+Here are the configuration settings I used for the Metaspolitable 2 and Windows 10 virtual machines: 
+ <br/> 
  <br/>
-<img src="https://i.imgur.com/dn9QytA.png" height="35%" width="35%" alt="Install Nessus"/>
+<img src="https://i.imgur.com/jYE5z1Z.png" alt="Configure Metasploitable VM"/>
+<img src="https://i.imgur.com/32XCSgZ.png" alt="Configure Windows 10 VM"/>
+ 
 <h2>Uncredentialed scan:</h2> 
 <p align="center">
 Prior to running the first scan, it is important to verify that the host machine can connect to the virtual machine. In the Windows 10 virtual machine, navigate to the command line and use the 'ipconfig' command to gather the IPv4 address of the system. With this IPv4 address, navigate to the command line of the host machine and type in the command 'ping x.x.x.x,' where 'x.x.x.x' is the IPv4 address of the virtual machine. If the host machine is not able to ping the target machine, navigate to the Windows Defender Firewall (wf.msc) and make the appropriate firewall state configuration changes.
