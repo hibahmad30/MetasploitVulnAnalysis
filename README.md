@@ -107,7 +107,7 @@ I then created a second pivot table that lists each vulnerability title, along w
 <br />
 <img src="https://i.imgur.com/nwNIN58.png" alt="Risk by Vulnerability Pivot Table"/>
 
-<h2>Excel Data Processing:</h2> 
+<h2>Vulnerability Analysis:</h2> 
  <p align="center">
 Missing or misconfigured registry keys can also cause vulnerabilities on a system. When configuring registry keys, it is crucial to ensure that the changes made align with the intended system or application settings and do not introduce unintended consequences or conflicts with existing configurations. To address the WinVerifyTrust Signature Validation Vulnerability (CVE-2013-3900), refer to the following link: https://msrc.microsoft.com/update-guide/vulnerability/CVE-2013-3900.
 <br />
@@ -143,6 +143,7 @@ Rather than having 5 'Medium' level vulnerabilities as in the previous scan, the
 <br />
 <br />
 <img src="https://i.imgur.com/cVK2O89.png" height="35%" width="35%" alt="Update Scan Results"/>     <img src="https://i.imgur.com/229wO2C.png" height="35%" width="35%" alt="Remediation Scan Results"/>
+ 
 <h2>Key takeaways:</h2>
  Credentialed scans are essential for identifying vulnerabilities in a system, as they allow Nessus to access and scan all parts of the system, including system files, registry entries, and application settings. This results in a more comprehensive and accurate assessment of the system's vulnerabilities.
 <br/>
