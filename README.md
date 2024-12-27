@@ -88,38 +88,27 @@ For detailed analysis, click 'Generate Report', choose 'CSV', and select the des
   <br/>
  <br/>
 
-<h2>Remediation:</h2> 
+<h2>Excel Data Processing:</h2> 
  <p align="center">
-Prior to running a vulnerability scan, it is essential to ensure that both the operating system and all third-party software are fully up-to-date. This will significantly reduce the number of vulnerabilities present in the scan results and will allow the analyst to have more efficient vulnerability management. To further maximize efficiency, be sure to set up automatic updates on your operating system and third-party software.
+To prepare the CSV file for analysis, use Excel to apply additional formatting, such as expanding columns, changing header colors, bolding the header text, enabling text wrapping, and turning on filters for the headers. I also renamed the headers for better clarity: 'Name' to 'Vulnerability Title', 'Synopsis' to 'Vulnerability Description', 'Description' to 'Plugin Description', and 'Solution' to 'Vulnerability Solution'.
  <br/>
  <br/>
-<img src="https://i.imgur.com/aMYixCT.png" height="60%" width="60%" alt="Uninstall Firefox"/>
+<img src="https://i.imgur.com/medb6YU.png" alt="Format CSV File"/>
 <br />
 <br />
- <img src="https://i.imgur.com/2aNsH9T.png" height="60%" width="60%" alt="Windows Updates"/>
- <br />
-<br />
-After uninstalling the deprecated Firefox and running Windows updates, I recieved the following scan result:
+The first pivot table summarizes the number of Critical, High, Medium, and Low vulnerabilities for the Metasploitable host, along with the grand total of vulnerabilities. If the scan were conducted against multiple hosts, this pivot table could be used to easily compare the total number of vulnerabilities by risk level for each host. By double-clicking on any risk level, an additional Excel sheet is generated, providing further details on the specific vulnerabilities within that risk level.
 <br />
 <br />
-<img src="https://i.imgur.com/a1LVKQZ.png" height="60%" width="60%" alt="Windows Update Scan"/>
+<img src="https://i.imgur.com/BSxWNBu.png" alt="Asset IP Pivot Table"/>
 <br />
 <br />
- <img src="https://i.imgur.com/XqWuev6.png" height="60%" width="60%" alt="Windows Update Scan"/>
+I then created a second pivot table that lists each vulnerability title, along with its associated risk level and the number of hosts impacted. In this specific use case, there is only one host, however multiple vulnerabilities with distinct CVEs share the same vulnerability title. This pivot table is particularly useful for vulnerability management, as it allows for easy identification of vulnerabilities by title and risk level, making it simpler to prioritize remediation efforts. It also provides insight into the level of impact, highlighting which vulnerabilities affect a larger number of hosts and helping guide the allocation of resources for mitigation.
 <br />
 <br />
-I then investigated more specific vulnerabilities for remediation. I found a few more vulnerabilities related to out-of-date software and installed the necessary software updates.
-<br />
-<br />
-<img src="https://i.imgur.com/lj5Xcv0.png" height="70%" width="70%" alt="3D Viewer Vulnerability"/>
-<br />
-<br />
- <img src="https://i.imgur.com/vY8a8LB.png" height="70%" width="70%" alt="3D Viewer Update"/>
-<br />
-<br />
-<img src="https://i.imgur.com/Nv8j19h.png" height="70%" width="70%" alt="Onedrive Update"/>
-<br />
-<br />
+<img src="https://i.imgur.com/nwNIN58.png" alt="Risk by Vulnerability Pivot Table"/>
+
+<h2>Excel Data Processing:</h2> 
+ <p align="center">
 Missing or misconfigured registry keys can also cause vulnerabilities on a system. When configuring registry keys, it is crucial to ensure that the changes made align with the intended system or application settings and do not introduce unintended consequences or conflicts with existing configurations. To address the WinVerifyTrust Signature Validation Vulnerability (CVE-2013-3900), refer to the following link: https://msrc.microsoft.com/update-guide/vulnerability/CVE-2013-3900.
 <br />
 <br />
