@@ -48,7 +48,7 @@ Additionally, on the Windows 10 virtual machine, navigate to the following link 
  <br/>
 <img src="https://i.imgur.com/GmA24Bw.png" alt="Verify Hash"/>
 
-<h2>Uncredentialed scan:</h2> 
+<h2>Uncredentialed Scan:</h2> 
 <p align="center">
 In Nessus, click 'New Scan', then select 'Basic Network Scan'. Enter a name for the scan and provide the virtual machine's IPv4 address in the 'Targets' field. Nessus Essentials also allows the administrator to schedule scans at desired intervals and specify contacts to receive scan notifications. Once the scan is configured, click the 'Launch' icon to begin the scan.
 <br />
@@ -61,7 +61,7 @@ The image below shows the results of the initial scan. Most of the vulnerabiliti
 <br />
 <img src="https://i.imgur.com/3ghN34P.png" alt="Uncredentialed Scan"/> 
 
-<h2>Credentialed scan:</h2> 
+<h2>Credentialed Scan:</h2> 
  <p align="center">
 To perform a credentialed scan, the virtual machine must be configured to accept authenticated scans. In Nessus, select the previously created scan, click 'More', then 'Configure'. Navigate to the 'Credentials' tab located next to 'Settings'. Set the 'Authentication method' to 'Password', and enter the username and password for the target Metasploitable virtual machine. After saving the credentials, launch the scan. 
  <br/>
@@ -81,7 +81,7 @@ Here is a side-by-side comparison of the two scans, with the credentialed scan d
  <img src="https://i.imgur.com/pZ7HRqC.png" height="35%" width="35%" alt="Uncredentialed Scan Results"/>     <img src="https://i.imgur.com/OALjpWr.png" height="35%" width="35%" alt="Credentialed Scan Results"/> 
   <br/>
  <br/>
-For detailed analysis, click 'Generate Report', choose 'CSV', and select the desired columns. While Nessus also offers the option to download an HTML report, I chose CSV for the additional customization options.
+For detailed analysis, click 'Generate Report', choose 'CSV', and select the desired columns. While Nessus also offers the option to download an HTML report, I chose CSV for the additional customization options: 
  <br/>
  <br/>
  <img src="https://i.imgur.com/QjDmAlT.png" alt="Generate Report"/>
