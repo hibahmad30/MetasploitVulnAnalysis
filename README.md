@@ -109,70 +109,62 @@ I then created a second pivot table that lists each vulnerability title, along w
 
 <h2>Vulnerability Analysis:</h2> 
  <p align="center">
-Missing or misconfigured registry keys can also cause vulnerabilities on a system. When configuring registry keys, it is crucial to ensure that the changes made align with the intended system or application settings and do not introduce unintended consequences or conflicts with existing configurations. To address the WinVerifyTrust Signature Validation Vulnerability (CVE-2013-3900), refer to the following link: https://msrc.microsoft.com/update-guide/vulnerability/CVE-2013-3900.
+CVEs (Common Vulnerabilities and Exposures) are unique identifiers assigned to publicly known security vulnerabilities in software, hardware, or firmware, enabling standardized tracking and sharing across platforms. Each CVE provides a brief description and references to relevant fixes or patches. 
+<br />
+<br />  
+The NIST NVD (National Vulnerability Database) is a comprehensive resource managed by the National Institute of Standards and Technology, offering detailed information on CVEs, including severity ratings and potential mitigations. In this project, we will explore some of the vulnerabilities found in our scan by referencing their CVEs in the NVD to analyze their impact and remediation strategies.
 <br />
 <br />
- <img src="https://i.imgur.com/Zrx2GOj.png" height="70%" width="70%" alt="WinVerifyTrust Vulnerability"/>
+Starting with CVE-2003-1567, the vulnerability details can be found on the NIST NVD at the following link: https://nvd.nist.gov/vuln/detail/CVE-2003-1567. 
 <br />
 <br />
-<img src="https://i.imgur.com/0eXXMzV.png" height="70%" width="70%" alt="WinVerifyTrust Remediation"/>
+ <img src="https://i.imgur.com/wTNh2vc.png" height="70%" width="70%" alt="NIST NVD CVE Details"/>
 <br />
 <br />
-I also addressed the 'SMB Signing not required' vulnerability, which has a 'Medium' severity level. This involved navigating to the 'Local Security Policy' and making the necessary configuration changes. The following link provides more information on how to resolve this vulnerability: https://learn.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/microsoft-network-server-digitally-sign-communications-always.
+CVE-2003-1567 is a security flaw in an older version of Microsoft Internet Information Services (IIS), which is used to manage websites. Rapid7's inclusion of Microsoft IIS on Metasploitable simulates real-world scenarios where outdated or poorly configured web servers become targets for attacks. This flaw involves a feature called the "TRACK" method, which is intended to track certain actions on a website. 
+<br />
+<br />  
+However, when used, it can accidentally reveal sensitive information like login details or cookies (small pieces of data that remember a user's actions on a website). Attackers can exploit this flaw to steal such information or bypass security measures, making it easier for them to access user accounts or sensitive data without permission. To prevent this, website administrators should disable unused features like the "TRACK" method to improve security.
 <br />
 <br />
-<img src="https://i.imgur.com/AtNAkOd.png" height="70%" width="70%" alt="SMB Signing Vulnerability"/>
+Next is CVE-2008-0166, a critical vulnerability related to insecure remote SSH host keys. 
 <br />
 <br />
- <img src="https://i.imgur.com/lOaujty.png" height="70%" width="70%" alt="SMB Signing Remediation"/>
+<img src="https://i.imgur.com/lghZE79.png" height="70%" width="70%" alt="NIST NVD CVE Vulnerability"/>
 <br />
 <br />
-<img src="https://i.imgur.com/3zNJDy1.png" height="70%" width="70%" alt="SMB Signing Remediation"/>
+This vulnerability involves an outdated version of OpenSSL, a tool used to secure online communications. The problem is that the random number generator it uses to create secure keys is not truly random, meaning the numbers can be predicted by attackers. 
+<br />
+<br />  
+If attackers can predict these numbers, they can attempt to guess the cryptographic keys used to secure data through a method called brute force, where they try many possible combinations until they find the correct one. This makes it easier for attackers to break the encryption and access sensitive information. To prevent this, it's important to use a secure, updated method for generating cryptographic keys.  
 <br />
 <br />
-After addressing these more specific vulnerabilities on the target system, I launched the final Nessus scan:
+When prioritizing vulnerabilities for remediation, it's important to focus on those that pose the greatest risk to your system first. Start with critical vulnerabilities that are easy to exploit or affect important systems. These are often high-impact issues that could allow attackers to gain access to sensitive information or disrupt services. 
 <br />
+<br />  
+Next, consider vulnerabilities with a high likelihood of being exploited, such as those that are widely known or already being targeted. By addressing the most severe and likely-to-be-exploited vulnerabilities first, you reduce the chances of a successful attack and improve your overall security posture. Prioritizing helps ensure that resources are used effectively to minimize risk. 
 <br />
-<img src="https://i.imgur.com/X4tXd1e.png" height="60%" width="60%" alt="Final Scan Results"/>
-<br />
-<br />
- <img src="https://i.imgur.com/0rygP8U.png" height="60%" width="60%" alt="Final Scan Results"/>
-<br />
-<br />
-Rather than having 5 'Medium' level vulnerabilities as in the previous scan, there are now 0. The 'High' severity vulnerabilities decreased from 16 to 3, and the 'Critical' level vulnerabilities decreased from 2 to 1. Depicted below is a comparison of the previous scan after Firefox was uninstalled and Windows updates were run (left) to the most recent scan where more specific remediations were also made (right):
-<br />
-<br />
-<img src="https://i.imgur.com/cVK2O89.png" height="35%" width="35%" alt="Update Scan Results"/>     <img src="https://i.imgur.com/229wO2C.png" height="35%" width="35%" alt="Remediation Scan Results"/>
+<br />  
+Tenable provides documentation on prioritizing vulnerabilities based on certain metrics, such as the Common Vulnerability Scoring System, or CVSS, which helps assess the severity of vulnerabilities. To learn more about how to use CVSS for prioritization, navigate to the following guide by Tenable: https://docs.tenable.com/cyber-exposure-studies/application-software-security/Content/VulnerabilitiesCVSS.htm. 
  
 <h2>Key takeaways:</h2>
- Credentialed scans are essential for identifying vulnerabilities in a system, as they allow Nessus to access and scan all parts of the system, including system files, registry entries, and application settings. This results in a more comprehensive and accurate assessment of the system's vulnerabilities.
+The project began by installing Nessus on a Windows 10 virtual machine to perform the vulnerability assessment. The target system for the scan was Metasploitable, a purposely vulnerable VM designed for testing. Both credentialed and non-credentialed scans were configured and executed to evaluate the vulnerabilities present on the target system.
 <br/>
 <br/>
-Deprecated software is a major source of vulnerabilities, making it crucial to keep all software up to date, including your operating system, browsers, and applications. Deprecated software often contains known security vulnerabilities that have been addressed in newer versions. While vulnerability remediation does often involve applying patches and updating software, it may also require changing system configurations. Nessus scans can be used to identify these vulnerabilities and remediate them. 
+After the scans were completed, the results were exported in CSV format and imported into Excel for further analysis. The Excel file was then formatted to improve readability by expanding columns, applying filters, and creating pivot tables. These tables helped summarize and organize the vulnerabilities based on their risk levels and the systems they affected.
 <br/>
 <br/>
-Regularly scanning your systems on an ongoing basis is also crucial to address any new vulnerabilities that may appear. The vulnerability management lifecycle is a powerful tool used to ensure that vulnerabilities are addressed continuously: 
+The project included researching specific vulnerabilities by referencing CVE entries and CVSS scores. This research provided a deeper understanding of the vulnerabilities, helping to evaluate their severity and potential impact. This was an important step in determining which vulnerabilities posed the highest risk to the system.
 <br/>
 <br/>
-In the planning stage of vulnerability management (Stage 0), any stakeholders and/or resources that will be involved should be identified. Guidelines and metrics outlining any goals or expectations should also be provided. In this project, the target system was a Windows 10 virtual machine, and the goal was to gain an overview of how vulnerability management works. 
+Vulnerability management is a critical process in cybersecurity that helps identify, assess, and mitigate security risks. Regular scans and effective management of vulnerabilities ensure that weaknesses in a system are addressed before they can be exploited by attackers. By following a structured approach to vulnerability management, organizations can minimize their exposure to threats.
 <br/>
 <br/>
-In this project, the target system was a Windows 10 virtual machine, and the goal was to understand how various configuration changes to both the Windows 10 machine and Nessus can result in varying scan results. Another goal was to explore different vulnerability remediation techniques.
+Prioritization is a key aspect of vulnerability management. Vulnerabilities should be prioritized based on factors such as their severity, ease of exploitation, and the potential impact they could have. CVE and CVSS scores play a significant role in helping to rank vulnerabilities, ensuring that the most critical issues are dealt with first.
 <br/>
 <br/>
-In the asset discovery phase (Stage 1), an inventory of all hardware and software assets should be created and/or updated regularly. It is common to use specialized solutions for asset management. This stage also involves scanning the assets for vulnerabilities. In this project, the primary asset was the Windows 10 virtual machine, and Nessus Essentials was used as the vulnerability scanner. 
-<br/>
-<br/>
-Stage 2 of the vulnerability management lifecycle is vulnerability prioritization, where the vulnerabilities discovered in Stage 1 are prioritized based on their severity level. This stage focuses on maximizing efficiency. The prioritization is often based on threat intelligence sources such as CVE or CVSS, and may also be based upon how critical the particular asset is, and how likely it is to be exploited. In this project, the prioritization was primarily based on the severity levels provided by Nessus Essentials. 
-<br/>
-<br/>
-Stage 3 involves vulnerability resolution, which involves remediation, mitigation, or acceptance. Remediation may involve patching software or making changes to system configurations, and essentially removing the vulnerability from the system entirely. Mitigation either lessens the severity of the vulnerability or makes it more challenging to exploit, but does not remove it from the system. For vulnerabilities that are less severe or not as high of a priority, they may just be accepted rather than being remediated or mitigated. This project focused on remediation primarily, however it is still crucial to understand mitigation and acceptance when working on larger scale systems in an organization. 
-<br/>
-<br/>
-Stage 4, or the verification and monitoring phase, involves scanning the systems again to ensure that their remediation and mitigation efforts were effective. This is also to ensure that there were no new vulnerabilities created while making any changes to the system. 
-<br/>
-<br/>
-The final stage, reporting and improvement (Stage 5), involves documenting the vulnerabilities that were found, as well as their outcomes. This stage focuses on the most recent scans and actions taken in the life cycle, as vulnerability management is an ongoing process. It is very important to have clear, up-to-date, and comprehensive documentation, particularly when working with stakeholders.
+In conclusion, this project highlighted the importance of vulnerability scanning, prioritization, and research in securing systems. By utilizing Nessus and examining CVE entries along with CVSS scores, I learned that effective vulnerability management involves a structured approach and informed decision-making to mitigate risks and strengthen overall security.
+
 
 <p align="center">
 <!--
