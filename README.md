@@ -28,66 +28,66 @@ Here are the configuration settings I used for the Metaspolitable 2 and Windows 
 <h2>Network Configuration and Testing:</h2> 
 
 <p align="center">
-Next, we need to configure both VMs to communicate with each other to ensure the scan functions properly. In VirtualBox, navigate to File > Tools > Network Manager > NAT Networks, then right-click to create a new NAT network and ensure that DHCP is enabled.
+Next, we need to configure both VMs to communicate with each other to ensure the scan functions properly. In VirtualBox, navigate to 'File > Tools > Network Manager > NAT Networks', then right-click to create a new NAT network and ensure that DHCP is enabled.
  <br/> 
  <br/>
 Next, in the Metasploitable VM, run the 'ifconfig' command and note the IP address located after 'inet addr':
  <br/> 
  <br/>
 <img src="https://i.imgur.com/QBaGUZ7.png" alt="Metasploitable VM IP address"/>
-<img src="https://i.imgur.com/32XCSgZ.png" alt="Configure Windows 10 VM"/>
- 
+ <br/> 
+ <br/>
+From the Windows 10 virtual machine, open PowerShell and run the 'ping' command followed by the IP address of the Metasploitable virtual machine to test connectivity.
+ <br/> 
+ <br/>
+<img src="https://i.imgur.com/Qo22DYP.png" alt="Test Network Connection"/>
+ <br/> 
+ <br/>
+Additionally, on the Windows 10 virtual machine, navigate to the following link to download Nessus Essentials: https://www.tenable.com/products/nessus/nessus-essentials. Optionally, you can run the following command in PowerShell to verify the SHA-256 hash of the downloaded file against the provided hash on Tenable's download page for Nessus Essentials.
+ <br/> 
+ <br/>
+<img src="https://i.imgur.com/GmA24Bw.png" alt="Verify Hash"/>
+
 <h2>Uncredentialed scan:</h2> 
 <p align="center">
-Prior to running the first scan, it is important to verify that the host machine can connect to the virtual machine. In the Windows 10 virtual machine, navigate to the command line and use the 'ipconfig' command to gather the IPv4 address of the system. With this IPv4 address, navigate to the command line of the host machine and type in the command 'ping x.x.x.x,' where 'x.x.x.x' is the IPv4 address of the virtual machine. If the host machine is not able to ping the target machine, navigate to the Windows Defender Firewall (wf.msc) and make the appropriate firewall state configuration changes.
-<br/>
-<br/>
-In Nessus, click 'New Scan,' then 'Basic Network Scan,' and provide a name for the scan as well as the virtual machine's IPv4 address in the 'Targets' category. Once the scan is saved, click the 'Launch' icon to begin the scan. The image below depicts the results of the first scan. The vulnerabilities discovered by the scan are primarily in the 'Info' severity, with one being in the 'Medium' severity. To read more about the severity levels assigned by Tenable, refer to the following link: https://docs.tenable.com/nessus/Content/RiskMetrics.htm. Without the use of privileged credentials, the scan is not able to go in-depth and find many vulnerabilities. Therefore, the next step is to perform a credentialed scan.
+In Nessus, click 'New Scan', then select 'Basic Network Scan'. Enter a name for the scan and provide the virtual machine's IPv4 address in the 'Targets' field. Nessus Essentials also allows the administrator to schedule scans at desired intervals and specify contacts to receive scan notifications. Once the scan is configured, click the 'Launch' icon to begin the scan.
 <br />
 <br />
-<img src="https://i.imgur.com/xCn6H4G.png" height="60%" width="60%" alt="Uncredentialed Scan"/> 
+<img src="https://i.imgur.com/27U9Nqw.png" alt="Nessus Scanner Page"/> 
 <br />
 <br />
-<img src="https://i.imgur.com/00b4WGs.png" height="60%" width="60%" alt="Uncredentialed Scan"/> 
+The image below shows the results of the initial scan. Most of the vulnerabilities detected fall under the 'Info' severity, with several categorized as 'Medium' severity. Since the scan was performed without privileged credentials, it could not perform a deep analysis and missed many vulnerabilities. The next step is to conduct a credentialed scan for more comprehensive results.  
+<br />
+<br />
+<img src="https://i.imgur.com/3ghN34P.png" alt="Uncredentialed Scan"/> 
+
 <h2>Credentialed scan:</h2> 
  <p align="center">
-In order to run a credentialed scan, the virtual machine must be configured to accept authenticated scans. The following link provided by Tenable describes how to configure the virtual machine for credentialed scans: https://community.tenable.com/s/article/Scanning-with-non-default-Windows-Administrator-Account?language=en_US. Some of the steps include enabling 'Remote Registry' and ensuring that 'File and Printer Sharing' is turned on in 'Advanced Sharing Settings.'
+To perform a credentialed scan, the virtual machine must be configured to accept authenticated scans. In Nessus, select the previously created scan, click 'More', then 'Configure'. Navigate to the 'Credentials' tab located next to 'Settings'. Set the 'Authentication method' to 'Password', and enter the username and password for the target Metasploitable virtual machine. After saving the credentials, launch the scan. 
  <br/>
  <br/>
- <img src="https://i.imgur.com/chTgvEo.png" height="70%" width="70%" alt="Remote Registry"/>
-  <br/>
-   <br/>
- <img src="https://i.imgur.com/3V8BHiM.png" height="70%" width="70%" alt="File and Printer Sharing"/>
- <br/>
- <br/>
-In Nessus, select the previous scan that was created, click 'More,' and then 'Configure.' Navigate to the 'Credentials' tab to the right of 'Settings.' The 'Authentication method' should be set to 'Password.' Enter the username and password of the target Windows 10 virtual machine. After saving these credentials, launch the scan. The image below displays the results of the first credentialed scan:
- <br/>
- <br/>
- <img src="https://i.imgur.com/6OoK2N3.png" height="60%" width="60%" alt="Credentialed Scan Results"/>
+ <img src="https://i.imgur.com/W7IuPhL.png" alt="Credentialed Scan Configuration"/>
   <br/>
  <br/>
- <img src="https://i.imgur.com/AFDXeDE.png" height="60%" width="60%" alt="Credentialed Scan Detailed Results"/>
+The image below shows the results of the credentialed scan, where the total number of vulnerabilities increased from 68 to 90: 
   <br/>
  <br/>
-In the previous uncredentialed scan, the highest severity was 'Medium,' with only 1 vulnerability in this category. In this credentialed scan, there are 7 'Medium' level vulnerabilities, 34 'High,' and 8 'Critical' vulnerabilities. These results further highlight the significance of performing credentialed scans. The two images below are a direct comparison of the results of the uncredentialed scan (left) and the credentialed scan (right). 
+ <img src="https://i.imgur.com/7bVcbEM.png" alt="Credentialed Scan Vulnerabilities"/>
  <br/>
  <br/>
- <img src="https://i.imgur.com/25bx2Ph.png" height="30%" width="30%" alt="Uncredentialed Scan Results"/>     <img src="https://i.imgur.com/WjAcm6L.png" height="30%" width="30%" alt="Credentialed Scan Results"/>
+Here is a side-by-side comparison of the two scans, with the credentialed scan displayed on the right: 
   <br/>
  <br/>
-For further analysis, I have downloaded a deprecated version of Firefox on the Windows 10 virtual machine. When installing deprecated software, it is vital to ensure that it is done in a sandboxed environment. I then relaunched the scan and got the following results:
- <br/>
- <br/>
- <img src="https://i.imgur.com/nFye7ok.png" height="60%" width="60%" alt="Credentialed Scan Results w/ Firefox"/>
+ <img src="https://i.imgur.com/pZ7HRqC.png" height="35%" width="35%" alt="Uncredentialed Scan Results"/>     <img src="https://i.imgur.com/OALjpWr.png" height="35%" width="35%" alt="Credentialed Scan Results"/> 
   <br/>
  <br/>
- <img src="https://i.imgur.com/KLqflvy.png" height="50%" width="50%" alt="Credentialed Scan Detailed Results w/ Firefox"/>
+For detailed analysis, click 'Generate Report', choose 'CSV', and select the desired columns. While Nessus also offers the option to download an HTML report, I chose CSV for the additional customization options.
+ <br/>
+ <br/>
+ <img src="https://i.imgur.com/QjDmAlT.png" alt="Generate Report"/>
   <br/>
  <br/>
-Rather than having 7 'Medium' level vulnerabilities as in the first credentialed scan, there are now 23. The 'High' severity vulnerabilities increased from 34 to 108, and the 'Critical' level vulnerabilities increased from 8 to 86. These scan results emphasize the importance of ensuring that all third-party software are fully patched and up-to-date. Depicted below is a comparison of the first credentialed scan (left) to the second credentialed scan with the deprecated version of Firefox installed (right):
- <br/>
- <br/>
- <img src="https://i.imgur.com/WjAcm6L.png" height="30%" width="30%" alt="Credentialed Scan Results"/>     <img src="https://i.imgur.com/FcqpzOC.png" height="30%" width="30%" alt="Credentialed Scan Results w/ Firefox"/>
+
 <h2>Remediation:</h2> 
  <p align="center">
 Prior to running a vulnerability scan, it is essential to ensure that both the operating system and all third-party software are fully up-to-date. This will significantly reduce the number of vulnerabilities present in the scan results and will allow the analyst to have more efficient vulnerability management. To further maximize efficiency, be sure to set up automatic updates on your operating system and third-party software.
