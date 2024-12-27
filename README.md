@@ -24,6 +24,18 @@ Here are the configuration settings I used for the Metaspolitable 2 and Windows 
  <br/>
 <img src="https://i.imgur.com/jYE5z1Z.png" alt="Configure Metasploitable VM"/>
 <img src="https://i.imgur.com/32XCSgZ.png" alt="Configure Windows 10 VM"/>
+
+<h2>Network Configuration and Testing:</h2> 
+
+<p align="center">
+Next, we need to configure both VMs to communicate with each other to ensure the scan functions properly. In VirtualBox, navigate to File > Tools > Network Manager > NAT Networks, then right-click to create a new NAT network and ensure that DHCP is enabled.
+ <br/> 
+ <br/>
+Next, in the Metasploitable VM, run the 'ifconfig' command and note the IP address located after 'inet addr':
+ <br/> 
+ <br/>
+<img src="https://i.imgur.com/QBaGUZ7.png" alt="Metasploitable VM IP address"/>
+<img src="https://i.imgur.com/32XCSgZ.png" alt="Configure Windows 10 VM"/>
  
 <h2>Uncredentialed scan:</h2> 
 <p align="center">
